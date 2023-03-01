@@ -1,102 +1,133 @@
-//Get Input 
+
+//Get All Case and Phone Input 
 function getInput(Button, phone_input) {
     const phone_number = phone_input.value;
     if (Button == 'plus') {
-        const phone_number_int = parseInt(phone_number) + 1;
-        return phone_number_int;
+        if (parseInt(phone_number) >= 0) {
+            const phone_number_int = parseInt(phone_number) + 1;
+            return phone_number_int;
+
+        }
+
     }
 
     else if (Button == 'minus') {
+        if (parseInt(phone_number) > 0) {
+            const phone_number_int = parseInt(phone_number) - 1;
+            return phone_number_int;
 
-        const phone_number_int = parseInt(phone_number) - 1;
-        return phone_number_int;
+        }
+        //phone input remain zero 
+        else if (parseInt(phone_number) == 0) {
+            const phone_number_int = 0;
+            return phone_number_int;
 
+        }
     }
 
 
 }
 
-//Phone Button
+//Phone Total Calculation
 function getPhoneTotal(Button, phone_total_input) {
     const phone_total_text = phone_total_input.innerText;
     if (Button == 'plus') {
-        const phone_total = parseInt(phone_total_text) + 1219;
-        phone_total_input.innerText = phone_total;
+        if (parseInt(phone_total_text) >= 0) {
+            const phone_total = parseInt(phone_total_text) + 1219;
+            phone_total_input.innerText = phone_total;
+            return phone_total;
+        }
+
     }
 
     else if (Button == 'minus') {
 
-        const phone_total = parseInt(phone_total_text) - 1219;
-        phone_total_input.innerText = phone_total;
+        if (parseInt(phone_total_text) > 0) {
+            const phone_total = parseInt(phone_total_text) - 1219;
+            phone_total_input.innerText = phone_total;
+            return phone_total;
+
+
+        }
     }
 
 }
 
 
-
+//Phone Plus Button
 document.getElementById("phone-plus").addEventListener('click', function () {
     const phone_input = document.getElementById('phone-number');
     const phone_number_int = getInput('plus', phone_input);
-    getTaxAmount('plus');
     phone_input.value = phone_number_int;
 
 
     const phone_total_input = document.getElementById('phone-total');
+    //getPhontotal function called
     getPhoneTotal('plus', phone_total_input);
-    getSubTotal();
-    getTotalPrice()
+
+    getSubTotal();//getSubTotal function called
+    getTotalPrice();//getTotalPrice()
 
 
 
 
 
 })
-
+//phone minus Button
 document.getElementById("phone-minus").addEventListener('click', function () {
     const phone_input_minus = document.getElementById('phone-number');
     const phone_number_minus_int = getInput('minus', phone_input_minus);
-    getTaxAmount('minus');
     phone_input_minus.value = phone_number_minus_int;
 
-
-
     const minus_phone_total_input = document.getElementById('phone-total');
-    getPhoneTotal('minus', minus_phone_total_input);
-    getSubTotal();
-    getTotalPrice()
+    getPhoneTotal('minus', minus_phone_total_input);//getPhontotal function called
+    getSubTotal();//getSubTotal function called
+    getTotalPrice();//getTotalPrice()
 
 
 })
 
-
-
-//Case Button
-
+//Case Total Calculation
 
 function getCaseTotal(CaseButton, case_total_input) {
     const case_total_text = case_total_input.innerText;
     if (CaseButton == 'plus') {
-        const case_total = parseInt(case_total_text) + 59;
-        case_total_input.innerText = case_total;
+        if (parseInt(case_total_text) >= 0) {
+            const case_total = parseInt(case_total_text) + 59;
+            case_total_input.innerText = case_total;
+            return case_total;
+
+        }
+
     }
 
     else if (CaseButton == 'minus') {
+        if (parseInt(case_total_text) > 0) {
+            const case_total = parseInt(case_total_text) - 59;
+            case_total_input.innerText = case_total;
+            return case_total;
 
-        const case_total = parseInt(case_total_text) - 59;
-        case_total_input.innerText = case_total;
+
+        }
+
+
     }
 
 }
+
+//Case Plus Button
 document.getElementById("case-plus").addEventListener('click', function () {
 
     const case_input_plus = document.getElementById("case-number");
+
+    //Take Case Input
     const case_number_plus_int = getInput('plus', case_input_plus);
-    getTaxAmount('plus');
 
     case_input_plus.value = case_number_plus_int;
 
-
     const case_total_plus_input = document.getElementById("case-total");
+
+    //getCaseTotal function called and return Total Case Price
     getCaseTotal('plus', case_total_plus_input);
     getSubTotal();
     getTotalPrice();
@@ -104,11 +135,10 @@ document.getElementById("case-plus").addEventListener('click', function () {
 
 })
 
-
+//Case Minus Button
 document.getElementById("case-minus").addEventListener('click', function () {
     const case_input_minus = document.getElementById("case-number");
     const case_number_minus_int = getInput('minus', case_input_minus);
-    getTaxAmount('minus');
 
     case_input_minus.value = case_number_minus_int;
 
@@ -135,33 +165,14 @@ function getSubTotal() {
 
     const subTotal = TotalPhonePurchased + TotalCasePurchased;
     subtotalInput.innerText = subTotal;
+
+    //Tax Calculation
+
+    const taxField = document.getElementById("tax-ammount");
+    const TaxAmount = subTotal * 0.1;
+    taxField.innerText = TaxAmount
 }
-// Tax Amount Calculation
-function getTaxAmount(Button) {
-    const TaxAmountInput = document.getElementById("tax-ammount");
-    const TaxAmounttext = TaxAmountInput.innerText;
 
-
-    if (Button == 'plus') {
-        const TaxAmount = parseInt(TaxAmounttext) + 100;
-        if (TaxAmount >= 0) {
-            TaxAmountInput.innerText = TaxAmount;
-
-
-        }
-
-    }
-
-    else if (Button == 'minus') {
-
-        const TaxAmount = parseInt(TaxAmounttext) - 100;
-        if (TaxAmount >= 0) {
-            TaxAmountInput.innerText = TaxAmount;
-
-        }
-    }
-
-}
 
 //Total Product Price Calculation
 
